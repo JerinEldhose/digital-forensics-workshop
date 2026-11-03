@@ -128,9 +128,13 @@ def correlate_downloads(alerts, file_rows, followup_minutes=10):
         results.append(new_alert)
 
     return sorted(
-        results,
-        key=lambda a: (a["success_time"], a["success_id"])
+    results,
+    key=lambda a: (
+        -a["total_bytes"],
+        a["success_time"],
+        a["success_id"]
     )
+)
 
 
 def main():
