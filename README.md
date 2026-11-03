@@ -64,8 +64,8 @@ with this supplied baseline; it does not establish authenticity or completeness.
 `.gitattributes` preserves CSV bytes through Git on all operating systems.
 
 ## Verified results -- complete this section
-
 | Source | Data rows excluding header | Accepted unique | Duplicate | Rejected |
+| --- | ---: | ---: | ---: | ---: |
 | auth_log.csv | 60 | 54 | 1 | 5 |
 | file_log.csv | 35 | 30 | 1 | 4 |
 
@@ -74,6 +74,7 @@ with this supplied baseline; it does not establish authenticity or completeness.
 - Number of flagged successful sessions: 3
 
 | Success ID | Account | Session | Supporting failure IDs | Download IDs | Event count | Total bytes |
+| --- | --- | --- | --- | --- | ---: | ---: |
 | A005 | analyst01 | S-104 | A002, A003, A004 | F001, F002, F003 | 3    | 5,509,120 |
 | A018 |	analyst02 |	S-304 | A015, A016, A017 |	F013             |	1  |	2,048 |
 | A014 | backup_svc| S-204 | A011, A012, A013 |	None   	        | 0    |  0   |
@@ -97,7 +98,7 @@ original timestamps and UTC equivalents. Add rows as needed.
 
 - Manual sum of download bytes, showing the addition: F001 (5,242,880) + F002 (262,144) + F003 (4,096) = 5,509,120 bytes, matching summary.json.
 - A001 versus A002: which qualifies for the A005 window and why? A005 succeeded at 09:03:00 UTC, so the five-minute failure window begins at 08:58:00 UTC. A001 occurred at 08:57:59 UTC, one second before the window, and is excluded. A002 occurred exactly at 08:58:00 UTC and is included because the lower boundary is inclusive.
-- F003 versus F004: which qualifies for the A005 follow-up and why? :A005 succeeded at 09:03:00 UTC, so its ten-minute download window ends at 09:13:00 UTC. F003 occurred exactly at 09:13:00 UTC and is included. F004 occurred at 09:13:01 UTC, one second after the boundary, so it is excluded.
+- F003 versus F004: which qualifies for the A005 follow-up and why? A005 succeeded at 09:03:00 UTC, so its ten-minute download window ends at 09:13:00 UTC. F003 occurred exactly at 09:13:00 UTC and is included. F004 occurred at 09:13:01 UTC, one second after the boundary, so it is excluded.
 - Why F005 is excluded even though the account matches: F005 has the same username (analyst01) and host (DF-PORTAL01) as A005, but its session ID is S-OTHER, not S-104. Therefore, it does not meet the three-field matching requirement.
 - One +01:00 timestamp and its equivalent UTC time: A004 has the original timestamp 2026-10-20T10:01:00+01:00, equivalent to 2026-10-20T09:01:00Z. Subtracting one hour converts the timestamp to UTC.
 - One limitation of excluding malformed records: Rejected events are not included in the calculations. If an excluded event represents a genuine login failure, successful login or download, the reported number of alerts or download totals may be incomplete.
@@ -107,12 +108,12 @@ original timestamps and UTC equivalents. Add rows as needed.
 Command, date and actual final result (paste output, including failures if any):
 
 ```text
-[Command: & "C:\Users\46764\anaconda3\python.exe" check_solution.py
+Command: & "C:\Users\46764\anaconda3\python.exe" check_solution.py
 Date: 3 November 2026
 
-Ran 21 tests in 0.032s
+Ran 21 tests in 0.037s
 
-OK]
+OK
 ```
 
 All 21 supplied checks should pass. Passing these checks is limited validation
